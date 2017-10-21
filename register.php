@@ -14,7 +14,8 @@
         $query = 'INSERT INTO users(username, password, role) VALUES(?,?,?)' ;
         if ($stmt = $db->prepare($query)) {
             $role = 'guest';
-            $stmt->bind_param('sss', $_POST['username'], md5($_POST['password']), $role);
+            $new_pass = md5($_POST['password']);
+            $stmt->bind_param('sss', $_POST['username'], $new_pass, $role);
             $stmt->execute();
             if ( mysqli_connect_errno() ) {
                 $msg = mysqli_connect_error();

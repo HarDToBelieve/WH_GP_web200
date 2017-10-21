@@ -6,15 +6,9 @@
  * Time: 13:28
  */
 
-    session_start();
-    require_once ('utils.php');
-    if ( !isset($_SESSION['username']) or !isset($_SESSION['role']) ) {
-        header('Location: login.php');
-        die();
-    }
-
+    $sub_proj = '/WH_GP_web200';
     $data = 'user=' . $_SESSION['username'] . '&role=' . $_SESSION['role'];
-    $url = 'http://' . $_SERVER['HTTP_HOST'] . '/validate.php?' . $data;
+    $url = 'http://' . $_SERVER['HTTP_HOST'] . $sub_proj . '/validate.php?' . $data;
 
     $postData = array('signature' => md5(md5(SECRET . ' : ' . $data)));
     $options = array(

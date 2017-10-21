@@ -1,4 +1,4 @@
 Options +FollowSymLinks -MultiViews
 RewriteEngine On
-RewriteBase /
-RewriteRule ^(.*)$ /logger.php?page=$1 [R]
+RewriteBase /WH_GP_web200
+RewriteRule ^(.*)$ logger.php?S4cr3t_P4r4m3t3r=$1&%{QUERY_STRING}
