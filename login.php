@@ -14,18 +14,35 @@
 
         $query = 'SELECT username, role FROM users WHERE username=? AND password=?';
         if ($stmt = $db->prepare($query)) {
-            $stmt->bind_param('ss', $_POST['username'], $_POST['password']);
+            $new_pass = md5($_POST['password']);
+            $stmt->bind_param('ss', $_POST['username'], $new_pass);
             $stmt->execute();
-            $stmt->bind_result($user);
+            $stmt->bind_result($user, $role);
             $stmt->fetch();
-            if ( $user ) {
-                $_SESSION['username'] = $user['username'];
-                $_SESSION['role'] = $user['role'];
-                header('Location: index.php');
+            if ( $user && $role ) {
+                $_SESSION['username'] = $user;
+                $_SESSION['role'] = $role;
+                header('Location: foods.php');
                 die();
             }
+        }
+        else {
+            die($db->error);
         }
     }
 ?>
 
 
+<html lang = "en">
+<body>
+<form class = "form-signin" role = "form"
+      action = "" method = "post">
+    <input type = "text" class = "form-control"
+           name = "username" required autofocus></br>
+    <input type = "password" class = "form-control"
+           name = "password" required>
+    <button class = "btn btn-lg btn-primary btn-block" type = "submit"
+            name = "login">Login</button>
+</form>
+</body>
+</html>
