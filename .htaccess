@@ -1,5 +1,4 @@
 Options +FollowSymLinks -MultiViews
 RewriteEngine On
 RewriteBase /
-RewriteCond %{HTTP_HOST} !^www\. [NC]
 RewriteRule ^(.*)$ /logger.php?page=$1 [R]
