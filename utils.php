@@ -7,6 +7,17 @@
  */
     error_reporting(E_ALL);
     ini_set("display_errors", 1);
+
+    function generateRandomString($length) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+
     define("LOG_PATH", "logs");
     define("SECRET", "S4D_L1F3!!!!");
     define("APPEND_FIELD", '/WH_GP_web200');

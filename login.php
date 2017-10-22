@@ -16,17 +16,19 @@
     if (isset($_POST['login']) && !empty($_POST['username'])
         && !empty($_POST['password'])) {
 
-        $query = 'SELECT username, role FROM users WHERE username=? AND password=?';
+        $query = 'SELECT username, nickname, role, signature FROM users WHERE username=? AND password=?';
         if ($stmt = $db->prepare($query)) {
             $new_pass = md5($_POST['password']);
             $stmt->bind_param('ss', $_POST['username'], $new_pass);
             $stmt->execute();
-            $stmt->bind_result($user, $role);
+            $stmt->bind_result($user, $nickname, $role, $signature);
             $stmt->fetch();
             if ( $user && $role ) {
                 $_SESSION['username'] = $user;
                 $_SESSION['role'] = $role;
-                header('Location: foods.php');
+                $_SESSION['signature'] = $signature;
+                $_SESSION['nickname'] = $nickname;
+                header('Location: index.php');
                 die();
             }
         }

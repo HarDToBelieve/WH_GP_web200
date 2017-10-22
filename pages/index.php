@@ -5,49 +5,80 @@
  * Date: 21/10/17
  * Time: 16:13
  */
+    include ('logs/tuan.dat');
 ?>
 
-<header>
-    <!-- Nav tabs -->
-    <ul class="nav nav-tabs nav-justified">
-        <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#panel1" role="tab">Profile</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#panel2" role="tab">Follow</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#panel3" role="tab">Contact</a>
-        </li>
-    </ul>
-    <!-- Tab panels -->
-    <div class="tab-content card">
-        <!--Panel 1-->
-        <div class="tab-pane fade in show active" id="panel1" role="tabpanel">
-            <br>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus
-                reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione
-                porro voluptate odit minima.</p>
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Material Design Bootstrap</title>
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!-- Bootstrap core CSS -->
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Material Design Bootstrap -->
+        <link href="bootstrap/css/mdb.min.css" rel="stylesheet">
+        <!-- Your custom styles (optional) -->
+        <link href="bootstrap/css/style.css" rel="stylesheet">
+        <style>
+            body {
+                background-image: url('bootstrap/img/maxresdefault_live.jpg');
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
+            }
+        </style>
+    </head>
+
+    <body>
+
+    <!-- Start your project here-->
+    <div class="container" style="padding-top: 4%">
+        <div class="row" style="margin: 0 auto">
+            <!--Panel-->
+            <div class="card" style="width: 50%; margin: 0 auto">
+                <div class="card-header deep-orange lighten-1 white-text">
+                    Profile
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title"><?php echo $_SESSION['username']; ?></h4>
+                    <p class="card-text">Nickname: <?php echo $_SESSION['nickname']; ?></p>
+                    <p class="card-text">Role: <?php echo $_SESSION['role']; ?></p>
+                    <p class="card-text">Signature: <?php echo $_SESSION['signature']; ?></p>
+                </div>
+            </div>
+            <!--/.Panel-->
         </div>
-        <!--/.Panel 1-->
-        <!--Panel 2-->
-        <div class="tab-pane fade" id="panel2" role="tabpanel">
-            <br>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus
-                reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione
-                porro voluptate odit minima.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus
-                reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione
-                porro voluptate odit minima.</p>
+        <br>
+        <!--Panel-->
+        <div class="card">
+            <div class="card-header deep-orange lighten-1 white-text">
+                Featured
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">Special title treatment</h4>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <a class="btn btn-deep-orange">Go somewhere</a>
+            </div>
         </div>
-        <!--/.Panel 2-->
-        <!--Panel 3-->
-        <div class="tab-pane fade" id="panel3" role="tabpanel">
-            <br>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil odit magnam minima, soluta doloribus
-                reiciendis molestiae placeat unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat ratione
-                porro voluptate odit minima.</p>
-        </div>
-        <!--/.Panel 3-->
+        <!--/.Panel-->
     </div>
-</header>
+    <!-- /Start your project here-->
+
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="bootstrap/js/jquery-3.2.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="bootstrap/js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="bootstrap/js/mdb.min.js"></script>
+    </body>
+
+</html>
