@@ -6,9 +6,8 @@
  * Time: 13:28
  */
 
-    $sub_proj = '/WH_GP_web200';
     $data = 'user=' . $_SESSION['username'] . '&role=' . $_SESSION['role'];
-    $url = 'http://' . $_SERVER['HTTP_HOST'] . $sub_proj . '/validate.php?' . $data;
+    $url = 'http://' . $_SERVER['HTTP_HOST'] . APPEND_FIELD . '/validate.php?' . $data;
 
     $postData = array('signature' => md5(md5(SECRET . ' : ' . $data)));
     $options = array(

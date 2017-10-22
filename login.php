@@ -8,6 +8,10 @@
 
     session_start();
     require_once ('utils.php');
+    if ( isset($_SESSION['username']) or isset($_SESSION['role']) ) {
+        header('Location: index.php');
+        die();
+    }
 
     if (isset($_POST['login']) && !empty($_POST['username'])
         && !empty($_POST['password'])) {
