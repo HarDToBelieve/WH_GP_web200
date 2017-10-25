@@ -8,7 +8,7 @@
 
     session_start();
     require_once ('utils.php');
-    if ( isset($_SESSION['username']) or isset($_SESSION['role']) ) {
+    if ( isset($_SESSION['username'])  ) {
         header('Location: index.php');
         die();
     }
@@ -28,6 +28,7 @@
                 $_SESSION['role'] = $role;
                 $_SESSION['signature'] = $signature;
                 $_SESSION['nickname'] = $nickname;
+                setcookie();
                 header('Location: index.php');
                 die();
             }

@@ -13,6 +13,9 @@
         if ( !preg_match ("/^[a-zA-Z\s]+$/",$_POST['username']) ) {
             $error = 'Name must contain letters only';
         }
+        else if ( strlen($_POST['nickname']) ) {
+            $error = 'Nickname\'s length must be less than 5 characters';
+        }
         else {
             $query = 'INSERT INTO users(username, nickname, password, role, signature) VALUES(?,?,?,?,?)';
             if ($stmt = $db->prepare($query)) {

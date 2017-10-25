@@ -6,12 +6,20 @@
  * Time: 15:04
  */
 
+    session_start();
     require_once ('utils.php');
+    if ( !isset($_SESSION['username']) ) {
+        header('Location: index.php');
+        die();
+    }
+
     $data = $_SERVER['QUERY_STRING'];
     $signature = $_POST['signature'];
-    if ( md5(SECRET . ' : ' . $data) === $signature ) {
-        die (json_encode(array("user" => $_GET['role'])));
+    if ( md5(SECRET . ' : ' . $data) === $signature and !isset($_SESSION['token']) ) {
+        $_SESSION['token'] = genHash(32);
+        $_SESSION[$_SESSION['token']] = $_GET['role'];
+        die ($_SESSION['token']);
     }
     else {
-        die (json_encode(array("user" => "hacker")));
+        die ("0xDEADC0DE");
     }

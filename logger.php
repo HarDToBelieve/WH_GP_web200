@@ -8,7 +8,7 @@
 
     session_start();
     require_once ('utils.php');
-    if ( !isset($_SESSION['username']) or !isset($_SESSION['role']) ) {
+    if ( !isset($_SESSION['username']) ) {
         header('Location: login.php');
         die();
     }

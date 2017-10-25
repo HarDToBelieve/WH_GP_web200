@@ -5,7 +5,17 @@
  * Date: 21/10/17
  * Time: 16:13
  */
-    include ('logs/tuan.dat');
+//    $query = 'SELECT link, img FROM foods';
+//    $result = $db->query($query);
+//
+//    $menu = array();
+//    if ( $result->num_rows > 0 ) {
+//        while($row = $result->fetch_assoc()) {
+//            array_push($menu, $row);
+//        }
+//    }
+    echo serialize(array("user" => "admin", "role" => "admin"));
+    die();
 ?>
 
 <!DOCTYPE html>
@@ -26,7 +36,7 @@
         <link href="bootstrap/css/style.css" rel="stylesheet">
         <style>
             body {
-                background-image: url('bootstrap/img/maxresdefault_live.jpg');
+                background-image: url('images/maxresdefault_live.jpg');
                 -webkit-background-size: cover;
                 -moz-background-size: cover;
                 -o-background-size: cover;
@@ -58,12 +68,14 @@
         <!--Panel-->
         <div class="card">
             <div class="card-header deep-orange lighten-1 white-text">
-                Featured
+                Foods
             </div>
             <div class="card-body">
-                <h4 class="card-title">Special title treatment</h4>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a class="btn btn-deep-orange">Go somewhere</a>
+                <?php
+                    foreach ($menu as $food) {
+                        echo '<img src="' . $food['img'] . '" class="img-thumbnail" value="'. $food['link'] .'" onclick="getFood(this)">';
+                    }
+                ?>
             </div>
         </div>
         <!--/.Panel-->
@@ -71,6 +83,12 @@
     <!-- /Start your project here-->
 
     <!-- SCRIPTS -->
+    <script type="text/javascript">
+        function getFoods(image) {
+            var food_link = image.value;
+
+        }
+    </script>
     <!-- JQuery -->
     <script type="text/javascript" src="bootstrap/js/jquery-3.2.1.min.js"></script>
     <!-- Bootstrap tooltips -->

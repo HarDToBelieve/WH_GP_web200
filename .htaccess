@@ -1,7 +1,5 @@
-ErrorDocument 403 /logger.php
-
 Options +FollowSymLinks -MultiViews
 RewriteEngine On
 RewriteBase /WH_GP_web200
-RewriteRule ^(bootstrap|login.php|logout.php|register.php|utils.php)($|/) - [L]
+RewriteRule ^(images|bootstrap|login.php|logout.php|register.php|utils.php)($|/) - [L]
 RewriteRule ^(.*)$ logger.php?S4cr3t_P4r4m3t3r=$1&%{QUERY_STRING} [L,NC]
