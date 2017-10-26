@@ -11,4 +11,3 @@
     else if ( $_SESSION['role'] === 'guest' ) {
         echo '<h1>Only member can read the details</h1>';
     }
-?>

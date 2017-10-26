@@ -40,18 +40,82 @@
     }
 
 ?>
-<html lang = "en">
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Material Design Bootstrap</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="bootstrap/css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="bootstrap/css/style.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('images/maxresdefault_live.jpg');
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+    </style>
+</head>
+
 <body>
-<form class = "form-signin" role = "form"
-      action = "" method = "post">
-    <input type = "text" class = "form-control"
-           name = "username" required autofocus></br>
-    <input type = "text" class = "form-control"
-           name = "nickname" required autofocus></br>
-    <input type = "password" class = "form-control"
-           name = "password" required>
-    <button class = "btn btn-lg btn-primary btn-block" type = "submit"
-            name = "register">Register</button>
-</form>
+
+<!-- Start your project here-->
+<div class="container" style="padding-top: 2%">
+    <!--Panel-->
+    <div class="card" style="width: 50%; margin: 0 auto">
+        <div class="card-header deep-orange lighten-1 white-text">
+            <p class="h5 text-center mb-4">Register</p>
+        </div>
+        <div class="card-body">
+            <!-- Form login -->
+            <form action="register.php" method="post">
+                <div class="md-form">
+                    <input type="text" id="defaultForm-username" class="form-control" name="username">
+                    <label for="defaultForm-username">Username</label>
+                </div>
+
+                <div class="md-form">
+                    <input type="text" id="defaultForm-nickname" class="form-control" name="nickname">
+                    <label for="defaultForm-nickname">Nickname</label>
+                </div>
+
+                <div class="md-form">
+                    <input type="password" id="defaultForm-pass" class="form-control" name="password">
+                    <label for="defaultForm-pass">Password</label>
+                </div>
+
+                <div class="text-center">
+                    <button class = "btn btn-default" type = "submit" name = "register">Register</button><br>
+                    <a href="login.php">Sign in</a>
+                </div>
+            </form>
+            <!-- Form login -->
+        </div>
+    </div>
+    <!--/.Panel-->
+</div>
+<!-- /Start your project here-->
+
+<!-- SCRIPTS -->
+<!-- JQuery -->
+<script type="text/javascript" src="bootstrap/js/jquery-3.2.1.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="bootstrap/js/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="bootstrap/js/mdb.min.js"></script>
 </body>
+
 </html>

@@ -6,64 +6,123 @@
  * Time: 13:28
  */
 
-    session_start();
-    require_once ('utils.php');
-    if ( isset($_SESSION['username'])  ) {
+session_start();
+require_once ('utils.php');
+if ( isset($_SESSION['username'])  ) {
+    header('Location: index.php');
+    die();
+}
+
+if ( isset($_COOKIE['data']) ) {
+    if ( md5(SECRET . $_COOKIE['data']) === $_COOKIE['signature'] ) {
+        $data = explode(';', $_COOKIE['data']);
+        foreach ($data as $tmp) {
+            $tmp2 = explode('=', $tmp);
+            $_SESSION[$tmp2[0]] = $tmp2[1];
+        }
         header('Location: index.php');
         die();
     }
+}
+else if (isset($_POST['login']) && !empty($_POST['username'])
+    && !empty($_POST['password'])) {
 
-    if ( isset($_COOKIE['data']) ) {
-        if ( md5(SECRET . $_COOKIE['data']) === $_COOKIE['signature'] ) {
-            $data = explode(';', $_COOKIE['data']);
-            foreach ($data as $tmp) {
-                $tmp2 = explode('=', $tmp);
-                $_SESSION[$tmp2[0]] = $tmp2[1];
-            }
+    $query = 'SELECT username, nickname, role, suffix FROM users WHERE username=? AND password=?';
+    if ($stmt = $db->prepare($query)) {
+        $new_pass = md5($_POST['password']);
+        $stmt->bind_param('ss', $_POST['username'], $new_pass);
+        $stmt->execute();
+        $stmt->bind_result($user, $nickname, $role, $suffix);
+        $stmt->fetch();
+        if ( $user && $role ) {
+            $_SESSION['username'] = $user;
+            $_SESSION['role'] = $role;
+            $_SESSION['suffix'] = $suffix;
+            $_SESSION['nickname'] = $nickname;
+            $cookie_value = 'username=' . $user . ';role=' . $role . ';nickname=' . $nickname . ';suffix=' . $suffix;
+            setcookie('data', base64_encode($cookie_value), time() + (86400 * 30), '/');
+            $hash_value = md5(SECRET . $cookie_value);
+            setcookie('signature', $hash_value, time() + (86400 * 30), '/');
             header('Location: index.php');
             die();
         }
     }
-    else if (isset($_POST['login']) && !empty($_POST['username'])
-        && !empty($_POST['password'])) {
-
-        $query = 'SELECT username, nickname, role, suffix FROM users WHERE username=? AND password=?';
-        if ($stmt = $db->prepare($query)) {
-            $new_pass = md5($_POST['password']);
-            $stmt->bind_param('ss', $_POST['username'], $new_pass);
-            $stmt->execute();
-            $stmt->bind_result($user, $nickname, $role, $suffix);
-            $stmt->fetch();
-            if ( $user && $role ) {
-                $_SESSION['username'] = $user;
-                $_SESSION['role'] = $role;
-                $_SESSION['suffix'] = $suffix;
-                $_SESSION['nickname'] = $nickname;
-                $cookie_value = 'username=' . $user . ';role=' . $role . ';nickname=' . $nickname . ';suffix=' . $suffix;
-                setcookie('data', base64_encode($cookie_value), time() + (86400 * 30), '/');
-                $hash_value = md5(SECRET . $cookie_value);
-                setcookie('signature', $hash_value, time() + (86400 * 30), '/');
-                header('Location: index.php');
-                die();
-            }
-        }
-        else {
-            die($db->error);
-        }
+    else {
+        die($db->error);
     }
+}
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
 
-<html lang = "en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Material Design Bootstrap</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="bootstrap/css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="bootstrap/css/style.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('images/maxresdefault_live.jpg');
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+    </style>
+</head>
+
 <body>
-<form class = "form-signin" role = "form"
-      action = "" method = "post">
-    <input type = "text" class = "form-control"
-           name = "username" required autofocus></br>
-    <input type = "password" class = "form-control"
-           name = "password" required>
-    <button class = "btn btn-lg btn-primary btn-block" type = "submit"
-            name = "login">Login</button>
-</form>
+
+<!-- Start your project here-->
+<div class="container" style="padding-top: 2%">
+    <!--Panel-->
+    <div class="card" style="width: 50%; margin: 0 auto">
+        <div class="card-header deep-orange lighten-1 white-text">
+            <p class="h5 text-center mb-4">Sign in</p>
+        </div>
+        <div class="card-body">
+            <!-- Form login -->
+            <form action="login.php" method="post">
+                <div class="md-form">
+                    <input type="text" id="defaultForm-username" class="form-control" name="username">
+                    <label for="defaultForm-username">Username</label>
+                </div>
+
+                <div class="md-form">
+                    <input type="password" id="defaultForm-pass" class="form-control" name="password">
+                    <label for="defaultForm-pass">Password</label>
+                </div>
+
+                <div class="text-center">
+                    <button class = "btn btn-default" type = "submit" name = "login">Login</button><br>
+                    Don't have an account? <a href="register.php">Sign up</a>
+                </div>
+            </form>
+            <!-- Form login -->
+        </div>
+    </div>
+    <!--/.Panel-->
+</div>
+<!-- /Start your project here-->
+
+<!-- SCRIPTS -->
+<!-- JQuery -->
+<script type="text/javascript" src="bootstrap/js/jquery-3.2.1.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="bootstrap/js/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="bootstrap/js/mdb.min.js"></script>
 </body>
+
 </html>
