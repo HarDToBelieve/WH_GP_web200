@@ -5,17 +5,15 @@
  * Date: 21/10/17
  * Time: 16:13
  */
-//    $query = 'SELECT link, img FROM foods';
-//    $result = $db->query($query);
-//
-//    $menu = array();
-//    if ( $result->num_rows > 0 ) {
-//        while($row = $result->fetch_assoc()) {
-//            array_push($menu, $row);
-//        }
-//    }
-    echo serialize(array("user" => "admin", "role" => "admin"));
-    die();
+    $query = 'SELECT link, img FROM foods';
+    $result = $db->query($query);
+
+    $menu = array();
+    if ( $result->num_rows > 0 ) {
+        while($row = $result->fetch_assoc()) {
+            array_push($menu, $row);
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -59,7 +57,7 @@
                     <h4 class="card-title"><?php echo $_SESSION['username']; ?></h4>
                     <p class="card-text">Nickname: <?php echo $_SESSION['nickname']; ?></p>
                     <p class="card-text">Role: <?php echo $_SESSION['role']; ?></p>
-                    <p class="card-text">Signature: <?php echo $_SESSION['signature']; ?></p>
+                    <p class="card-text">Suffix key: <?php echo $_SESSION['suffix']; ?></p>
                 </div>
             </div>
             <!--/.Panel-->
@@ -70,10 +68,10 @@
             <div class="card-header deep-orange lighten-1 white-text">
                 Foods
             </div>
-            <div class="card-body">
+            <div id="food-content" class="card-body">
                 <?php
                     foreach ($menu as $food) {
-                        echo '<img src="' . $food['img'] . '" class="img-thumbnail" value="'. $food['link'] .'" onclick="getFood(this)">';
+                        echo '<img src="' . $food['img'] . '" width="150px" class="img-thumbnail" alt="'. $food['link'] .'" onclick="getFood(this)">';
                     }
                 ?>
             </div>
@@ -84,9 +82,11 @@
 
     <!-- SCRIPTS -->
     <script type="text/javascript">
-        function getFoods(image) {
-            var food_link = image.value;
-
+        function getFood(image) {
+            var food_link = image.alt;
+            $.get("foods.php", { "page" : food_link }, function (data) {
+                document.getElementById("food-content").innerHTML = data;
+            });
         }
     </script>
     <!-- JQuery -->

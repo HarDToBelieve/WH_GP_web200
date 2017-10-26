@@ -17,12 +17,12 @@
             $error = 'Nickname\'s length must be less than 5 characters';
         }
         else {
-            $query = 'INSERT INTO users(username, nickname, password, role, signature) VALUES(?,?,?,?,?)';
+            $query = 'INSERT INTO users(username, nickname, password, role, suffix) VALUES(?,?,?,?,?)';
             if ($stmt = $db->prepare($query)) {
                 $role = 'guest';
-                $signature = generateRandomString(10);
+                $suffix = generateRandomString(10);
                 $new_pass = md5($_POST['password']);
-                $stmt->bind_param('sssss', $_POST['username'], $_POST['nickname'], $new_pass, $role, $signature);
+                $stmt->bind_param('sssss', $_POST['username'], $_POST['nickname'], $new_pass, $role, $suffix);
                 $stmt->execute();
                 if (mysqli_connect_errno()) {
                     $msg = mysqli_connect_error();

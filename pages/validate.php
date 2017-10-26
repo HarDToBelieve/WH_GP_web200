@@ -13,8 +13,6 @@
         die();
     }
 
-    $data = $_SERVER['QUERY_STRING'];
-    $signature = $_POST['signature'];
     if ( md5(SECRET . ' : ' . $data) === $signature and !isset($_SESSION['token']) ) {
         $_SESSION['token'] = genHash(32);
         $_SESSION[$_SESSION['token']] = $_GET['role'];
