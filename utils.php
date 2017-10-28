@@ -18,19 +18,15 @@
         return $randomString;
     }
 
-    function genHash($length) {
-        $characters = '0123456789abcdef';
-        $charactersLength = strlen($characters);
-        $randomString = '';
-        for ($i = 0; $i < $length; $i++) {
-            $randomString .= $characters[rand(0, $charactersLength - 1)];
+    function validate($s) {
+        if ( preg_match('/GET|POST|escapeshellarg|escapeshellcmd|exec|passthru|proc_close|proc_get_status|proc_nice|proc_open|proc_terminate|shell_exec|system|fopen|fwrite|file_get_contents|stream_context_create|file_put_contents/i', $s) ) {
+            die ('Hacking attemp!!');
         }
-        return $randomString;
     }
 
-    define("LOG_PATH", "logs");
-    define("SECRET", "S4D_L1F3!!!!");
-    define("APPEND_FIELD", '/WH_GP_web200');
+    define("LOG_PATH", "GmQrH5RBZSGizH7EjLl");
+    define("SECRET", "pzFQbAtgPUWRL1v4H9B");
+    define("APPEND_FIELD", '');
 
     $db = mysqli_connect("localhost", "test", "1234", "test");
     if ( mysqli_connect_errno() ) {

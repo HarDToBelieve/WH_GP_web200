@@ -57,12 +57,12 @@
                     <div class="row">
                         <div class="col-md-6">
                             <h4 class="card-title"><?php echo $_SESSION['username']; ?></h4>
-                            <p class="card-text">Nickname: <?php echo $_SESSION['nickname']; ?></p>
-                            <p class="card-text">Role: <?php echo $_SESSION['role']; ?></p>
-                            <p class="card-text">Suffix key: <?php echo $_SESSION['suffix']; ?></p>
+                            <p class="card-text"><b>Nickname</b>: <?php echo $_SESSION['nickname']; ?></p>
+                            <p class="card-text"><b>Role</b>: <?php echo $_SESSION['role']; ?></p>
+                            <p class="card-text"><b>Suffix key</b>: <?php echo $_SESSION['suffix']; ?></p>
                         </div>
                         <div class="col-md-6" align="center">
-                            <a class="btn btn-primary waves-light" mdbRippleRadius onclick="alert('It \'s hard to believe that you clicked this button!')">Request member</a>
+                            <a class="btn btn-primary waves-light" mdbRippleRadius onclick="alert('It \'s hard to believe that you clicked this button!')">Get premium account</a>
                             <a href="<?php echo APPEND_FIELD; ?>/logout.php" class="btn btn-primary waves-light" mdbRippleRadius>Logout</a>
                             <a class="btn btn-primary waves-light" mdbRippleRadius onclick="getMenu()">Menu</a>
                         </div>

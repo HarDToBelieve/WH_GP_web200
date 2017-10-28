@@ -8,35 +8,36 @@
 
     require_once ('utils.php');
 
-    if (isset($_POST['register']) && !empty($_POST['username'])
-        && !empty($_POST['password']) && !empty($_POST['nickname'])) {
-        if ( !preg_match ("/^[a-zA-Z\s]+$/",$_POST['username']) ) {
-            $error = 'Name must contain letters only';
-        }
-        else if ( strlen($_POST['nickname']) ) {
-            $error = 'Nickname\'s length must be less than 5 characters';
-        }
-        else {
-            $query = 'INSERT INTO users(username, nickname, password, role, suffix) VALUES(?,?,?,?,?)';
-            if ($stmt = $db->prepare($query)) {
-                $role = 'guest';
-                $suffix = generateRandomString(10);
-                $new_pass = md5($_POST['password']);
-                $stmt->bind_param('sssss', $_POST['username'], $_POST['nickname'], $new_pass, $role, $suffix);
-                $stmt->execute();
-                if (mysqli_connect_errno()) {
-                    $msg = mysqli_connect_error();
-                } else {
-                    header('Location: login.php');
-                    die();
-                }
+    if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
+        if (isset($_POST['username']) && !empty($_POST['username'])
+            && isset($_POST['password']) && !empty($_POST['password'])
+            && isset($_POST['nickname']) && !empty($_POST['nickname'])) {
+            var_dump($_POST['username']);
+            if (!preg_match("/^[a-zA-Z0-9\s]+$/", $_POST['username'])) {
+                $error = 'Name must contain letters only';
+            } else if (strlen($_POST['nickname']) > 5) {
+                $error = 'Nickname\'s length must be less than 5 characters';
             } else {
-                $error = 'Something went wrong';
+                $query = 'INSERT INTO users(username, nickname, password, role, suffix) VALUES(?,?,?,?,?)';
+                if ($stmt = $db->prepare($query)) {
+                    $role = 'guest';
+                    $suffix = generateRandomString(10);
+                    $new_pass = md5($_POST['password']);
+                    $stmt->bind_param('sssss', $_POST['username'], $_POST['nickname'], $new_pass, $role, $suffix);
+                    $stmt->execute();
+                    if (mysqli_connect_errno()) {
+                        $error = 'Something went wrong';
+                    } else {
+                        header('Location: login.php');
+                        die();
+                    }
+                } else {
+                    $error = 'Something went wrong';
+                }
             }
+        } else {
+            $error = 'Fill in the blank';
         }
-    }
-    else {
-        $error = 'Fill in the blank';
     }
 
 ?>
@@ -81,6 +82,9 @@
             <!-- Form login -->
             <form action="register.php" method="post">
                 <div class="md-form">
+                    <?php if ( isset($error) ) echo "<font id='error' color='red'>" . $error . "</font><br>"; ?>
+                </div>
+                <div class="md-form">
                     <input type="text" id="defaultForm-username" class="form-control" name="username">
                     <label for="defaultForm-username">Username</label>
                 </div>
@@ -96,7 +100,7 @@
                 </div>
 
                 <div class="text-center">
-                    <button class = "btn btn-default" type = "submit" name = "register">Register</button><br>
+                    <button class = "btn btn-default" type = "submit">Register</button><br>
                     <a href="login.php">Sign in</a>
                 </div>
             </form>
