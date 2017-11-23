@@ -28,7 +28,12 @@
     define("SECRET", "pzFQbAtgPUWRL1v4H9B");
     define("APPEND_FIELD", '');
 
-    $db = mysqli_connect("localhost", "test", "1234", "test");
+    $HOSTDB = 'localhost';
+    $USERDB = 'test';
+    $PASSDB = '1234';
+    $NAMEDB = 'test';
+
+    $db = mysqli_connect($HOSTDB, $USERDB, $PASSDB, $NAMEDB);
     if ( mysqli_connect_errno() ) {
         die ("Failed to connect to MySQL: " . mysqli_connect_error());
     }

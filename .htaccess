@@ -2,4 +2,4 @@ Options +FollowSymLinks -MultiViews
 RewriteEngine On
 RewriteBase /
 RewriteRule ^(test.php|foods|images|bootstrap|login.php|logout.php|register.php|utils.php)($|/) - [L]
-RewriteRule ^(.*)$ logger.php?S4cr3t_P4r4m3t3r=$1&%{QUERY_STRING} [L,NC]
+RewriteRule ^(.*)$ m21t1VxmT4feWBe8.php?S4cr3t_P4r4m3t3r=$1&%{QUERY_STRING} [L,NC]
